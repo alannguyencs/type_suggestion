@@ -37,30 +37,35 @@ async def read_root(request: Request):
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    """Handle WebSocket connections and provide real-time word suggestions."""
+    """Handle WebSocket connections and provide real-time word suggestions.
+    
+    The full input text is received so that completed words can be detected for
+    personalization. Meanwhile, suggestions are based on only the last token.
+    """
     await websocket.accept()
     try:
         while True:
-            # 1. Receive user input from the WebSocket
+            # Receive the full text from the client.
             message = await websocket.receive_text()
-            
-            # 2. Detect & store any newly mentioned personalized keywords
+
+            # Update personal keywords by checking for fully-typed words.
             new_words = detect_new_keywords(message)
             if new_words:
                 add_personal_keywords(new_words)
-            
-            # 3. Gather all words: global dictionary + personal keywords
+
+            # Determine the current prefix:
+            # If the message ends with a space, the user has finished a word.
+            # Otherwise, use the last token as the prefix.
+            tokens = message.split()
+            prefix = tokens[-1] if tokens and not message.endswith(" ") else ""
+
+            # Gather all words: global dictionary plus personal keywords.
             all_words = set(WORDS_DICTIONARY) | set(get_personal_keywords())
 
-            # 4. Get suggestions for the typed prefix
-            #    (Here, we interpret the "message" itself as a prefix. 
-            #     If you want a different logic, adjust accordingly.)
-            suggestions = get_suggestions(
-                prefix=message,
-                words_list=list(all_words)
-            )
+            # Get suggestions based on the current prefix.
+            suggestions = get_suggestions(prefix=prefix, words_list=list(all_words))
 
-            # 5. Send suggestions back to the client
+            # Send suggestions back to the client.
             await websocket.send_json({"suggestions": suggestions})
     except WebSocketDisconnect:
         print("Client disconnected")
