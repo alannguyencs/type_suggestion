@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]         # Uvicorn server with standard extras (includes websockets)
+websockets                # Needed for WebSocket support in FastAPI&#8203;:contentReference[oaicite:3]{index=3}
+jinja2                    # Template engine for HTML

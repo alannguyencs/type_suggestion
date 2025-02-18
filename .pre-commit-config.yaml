@@ -1,0 +1,57 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0  # Updated to the latest stable version
+    hooks:
+      - id: trailing-whitespace
+        exclude: '(.*\.md$|scripts/.*\.py$)'
+      - id: end-of-file-fixer
+        exclude: '(.*\.md$|scripts/.*\.py$)'
+      - id: check-yaml
+        args: ["--allow-multiple-documents"]  # Allows multi-document YAML files
+      - id: check-added-large-files
+        args: ["--maxkb=500"]  # Set max size for files to be considered large (default is 500kB)
+
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.3.1
+    hooks:
+      - id: pylint
+        args: ["--disable=C0114", "--max-line-length=99"]
+        additional_dependencies:
+          - pre-commit
+          - pytest
+          - black
+          - flake8
+          - pylint
+          - fastapi
+          - jinja2
+          - uvicorn
+          - python-multipart
+          - python-dotenv
+          - pgvector
+          - sqlalchemy
+          - pydantic-settings==2.3.4
+          - itsdangerous
+          - pytz
+          - openai
+          - Pillow
+          - opencv-python
+          - python-jose
+          - tqdm
+          - psycopg2~=2.9.9
+          - passlib==1.7.4
+          - requests
+          - selenium
+        exclude: 'scripts/.*\.py$'
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        args: ["--max-line-length=99", "--max-complexity=10"]
+        exclude: 'scripts/.*\.py$'
+
+ci:
+  autofix_commit_msg: 'style: auto fixes from pre-commit hooks'
+  autoupdate_commit_msg: 'chore: pre-commit autoupdate'
+  skip: []
+  submodules: false

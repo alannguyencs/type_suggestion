@@ -1,0 +1,22 @@
+{
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+    "python.pythonPath": "${workspaceFolder}/venv/bin/python",
+    "files.trimTrailingWhitespace": false,
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        {
+            "color": "lightblue",
+            "column": 79
+        },
+        {
+            "color": "lightgreen",
+            "column": 99
+        }
+    ],
+    "pylint.args": [
+        "--disable=trailing-whitespace,C0303"
+    ],
+    "flake8.args": [
+        "--ignore=E123,E126,E127,E211,E226,W291,W293,W503,W504"
+    ]
+}

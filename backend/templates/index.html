@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Suggestion Chat</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+</head>
+
+<body>
+    <div id="container">
+        <h2>Real-Time Word Suggestions</h2>
+        <!-- Suggestions will appear in the box below -->
+        <div id="suggestion-container">
+            <ul id="suggestions"><!-- suggestions populate here --></ul>
+        </div>
+        <!-- Input field for typing words -->
+        <input type="text" id="messageInput" placeholder="Type a word..." autocomplete="off" />
+    </div>
+
+    <!-- Include the JavaScript file for WebSocket handling -->
+    <script src="/static/app.js"></script>
+</body>
+
+</html>
