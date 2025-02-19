@@ -63,7 +63,10 @@ async def websocket_endpoint(websocket: WebSocket):
             all_words = set(WORDS_DICTIONARY) | set(get_personal_keywords())
 
             # Get suggestions based on the current prefix.
-            suggestions = get_suggestions(prefix=prefix, words_list=list(all_words))
+            suggestions = get_suggestions(
+                prefix=prefix,
+                words_list=list(all_words)
+            )
 
             # Send suggestions back to the client.
             await websocket.send_json({"suggestions": suggestions})
