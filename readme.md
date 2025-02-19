@@ -96,9 +96,6 @@ backend/
 - **Real-Time Updates:** As you complete words (indicated by a trailing space), they are
   detected and stored, refining future suggestions.
 
-## License
-
-This project is available under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
